@@ -1,0 +1,38 @@
+@startuml paquetes
+title Diagrama de paquetes – Sistema de Reservas (v0.5)
+package "Presentación" #FCE4EC {
+  class FrmLogin
+  class FrmReserva
+  class FrmHabitaciones
+  class FrmComprobante
+}
+package "Servicios" #FFF1DC {
+  class GestorReservas
+  class GestorHabitaciones
+  class GestorComprobantes
+}
+package "Seguridad" #EDE6FA {
+  class Usuario
+  class Recepcionista
+  class Gerente
+}
+package "Dominio" #DFF5F2 {
+  class Reserva
+  class DetalleReserva
+  class Huesped
+  class Habitacion
+  class Pago
+  class Comprobante
+}
+package "Datos" #E3EFFC {
+  class RepositorioReservas
+  class RepositorioHabitaciones
+  class ConexionSQL
+}
+"Presentación" ..> "Servicios"
+"Servicios" ..> "Seguridad"
+"Servicios" ..> "Dominio"
+"Servicios" ..> "Datos"
+"Seguridad" ..> "Dominio"
+"Datos" ..> "Dominio"
+@enduml
