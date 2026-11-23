@@ -1,0 +1,27 @@
+@startuml clases_v01
+title Diagrama de clases v0.1 – Hostal La Perla (versión inicial)
+skinparam classAttributeIconSize 0
+class GestorHostal {
+  +registrarReserva()
+  +cancelarReserva()
+  +buscarDisponibles()
+  +liberarHabitacion()
+  +cambiarEstadoHabitacion()
+  +registrarPago()
+  +emitirComprobante()
+  +generarReporte()
+  +guardarReserva()
+  +guardarHabitacion()
+  +validarUsuario()
+  +actualizarHuesped()
+}
+class Huesped
+class Reserva
+class Habitacion
+class Comprobante
+GestorHostal ..> Reserva
+GestorHostal ..> Habitacion
+GestorHostal ..> Comprobante
+Huesped "1" -- "0..*" Reserva
+Reserva "*" -- "1" Habitacion
+@enduml
