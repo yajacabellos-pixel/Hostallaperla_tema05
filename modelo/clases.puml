@@ -1,27 +1,81 @@
-@startuml clases_v01
-title Diagrama de clases v0.1 – Hostal La Perla (versión inicial)
+@startuml clases_v05
+title Diagrama de clases v0.5 – Sistema de Reservas, Hostal La Perla
 skinparam classAttributeIconSize 0
-class GestorHostal {
+' Nota: las enumeraciones EstadoReserva, EstadoHabitacion, TipoHabitacion y TipoComprobante
+' se usan como tipos de atributo; falta dibujarlas como <<enumeration>> (ver docs/checklist_validacion.md)
+class Usuario {
+  -idUsuario: int
+  -nombreCompleto: String
+  -nombreUsuario: String
+  -clave: String
+  +iniciarSesion(): bool
+  +cerrarSesion()
+}
+class Recepcionista {
+  -turno: String
   +registrarReserva()
   +cancelarReserva()
-  +buscarDisponibles()
-  +liberarHabitacion()
-  +cambiarEstadoHabitacion()
-  +registrarPago()
-  +emitirComprobante()
-  +generarReporte()
-  +guardarReserva()
-  +guardarHabitacion()
-  +validarUsuario()
-  +actualizarHuesped()
 }
-class Huesped
-class Reserva
-class Habitacion
-class Comprobante
-GestorHostal ..> Reserva
-GestorHostal ..> Habitacion
-GestorHostal ..> Comprobante
-Huesped "1" -- "0..*" Reserva
-Reserva "*" -- "1" Habitacion
+class Gerente {
+  -cargo: String
+  +verReporte()
+}
+class Huesped {
+  -idHuesped: int
+  -nombres: String
+  -apellidos: String
+  -dni: String
+  -telefono: String
+  -correo: String
+  +actualizarDatos()
+}
+class Reserva {
+  -idReserva: int
+  -fechaRegistro: Date
+  -fechaIngreso: Date
+  -fechaSalida: Date
+  -canal: String
+  -estado: EstadoReserva
+  +confirmar()
+  +cancelar()
+  +calcularTotal(): decimal
+}
+class DetalleReserva {
+  -noches: int
+  -tarifaAplicada: decimal
+  +calcularSubtotal(): decimal
+}
+class Habitacion {
+  -numero: int
+  -piso: int
+  -tipo: TipoHabitacion
+  -tarifaNoche: decimal
+  -estado: EstadoHabitacion
+  +estaDisponible(fi, ff): bool
+  +cambiarEstado(e)
+}
+class Pago {
+  -idPago: int
+  -monto: decimal
+  -fecha: Date
+  -metodo: String
+  +registrar()
+  +anular()
+}
+class Comprobante {
+  -serie: String
+  -numero: int
+  -tipo: TipoComprobante
+  -fechaEmision: Date
+  -total: decimal
+  +emitir()
+}
+Usuario <|-- Recepcionista
+Usuario <|-- Gerente
+Huesped "1" -- "0..*" Reserva : realiza
+Reserva "1" *-- "1..*" DetalleReserva
+DetalleReserva "0..*" -- "1" Habitacion : se asigna a
+Reserva "1" o-- "0..*" Pago : tiene
+Pago "1" -- "0..1" Comprobante : genera
+Recepcionista "1" -- "0..*" Reserva : registra
 @enduml
