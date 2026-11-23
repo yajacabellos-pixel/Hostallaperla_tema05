@@ -1,0 +1,28 @@
+﻿Requisito,Descripcion,HU / CU,Clases que lo cubren,Operacion clave
+RF01,Registrar reserva,HU01 / CU01,Huesped; Reserva; DetalleReserva; Recepcionista; GestorReservas; Formularios (Frm); Repositorios (Datos),Reserva.confirmar()
+RF02,Consultar disponibilidad,HU02 / CU02,Habitacion; GestorHabitaciones; Formularios (Frm),Habitacion.estaDisponible()
+RF03,Registrar pago adelantado,HU03 / CU03,Pago; Reserva; GestorReservas,Pago.registrar()
+RF04,Emitir boleta o factura,HU04 / CU04,Comprobante; Pago; GestorComprobantes; Formularios (Frm),Comprobante.emitir()
+RF05,Cancelar reserva,HU05 / CU05,Reserva; Habitacion; Recepcionista; GestorReservas; GestorHabitaciones; Repositorios (Datos),Reserva.cancelar()
+RF06,Datos del huésped,HU06 / CU06,Huesped; Formularios (Frm),Huesped.actualizarDatos()
+RF07,Estado de habitaciones,HU07 / CU07,Habitacion; GestorHabitaciones; Formularios (Frm),Habitacion.cambiarEstado()
+RF08,Reporte de ocupación,HU08 / CU08,Gerente; GestorReservas; Formularios (Frm),Gerente.verReporte()
+RF09,Inicio de sesión por rol,HU09 / CU09,Usuario; Recepcionista; Gerente; Formularios (Frm),Usuario.iniciarSesion()
+RNF01,Persistencia en SQL Server,Transversal,Repositorios (Datos),Paquete Datos
+RNF02,Interfaz sencilla,Transversal,Formularios (Frm),Paquete Presentación
+
+Clase (sentido inverso),Requisitos
+Huesped,"RF01, RF06"
+Reserva,"RF01, RF03, RF05"
+DetalleReserva,RF01
+Habitacion,"RF02, RF05, RF07"
+Pago,"RF03, RF04"
+Comprobante,RF04
+Usuario,RF09
+Recepcionista,"RF01, RF05, RF09"
+Gerente,"RF08, RF09"
+GestorReservas,"RF01, RF03, RF05, RF08"
+GestorHabitaciones,"RF02, RF05, RF07"
+GestorComprobantes,RF04
+Formularios (Frm),"RF01, RF02, RF04, RF06, RF07, RF08, RF09, RNF02"
+Repositorios (Datos),"RF01, RF05, RNF01"
