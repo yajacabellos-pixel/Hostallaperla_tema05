@@ -1,0 +1,20 @@
+@startuml secuencia_cancelar_reserva
+title CU05 / HU05 Cancelar reserva y liberar cuarto (RF05, RF07)
+actor Recepcionista
+participant ":FrmReserva" as UI
+participant ":GestorReservas" as GR
+participant ":Reserva" as R
+participant ":GestorHabitaciones" as GH
+participant ":Habitacion" as H
+participant ":RepositorioReservas" as REP
+Recepcionista -> UI : buscar reserva y pulsar Cancelar
+UI -> GR : cancelarReserva(idReserva)
+GR -> R : cancelar()
+R --> GR : estado = Cancelada
+GR -> GH : liberarHabitacion(numero)
+GH -> H : cambiarEstado(Disponible)
+GR -> REP : actualizar(reserva)
+REP --> GR : actualizado
+GR --> UI : cancelación registrada
+UI --> Recepcionista : mostrar cuarto liberado
+@enduml

@@ -1,0 +1,25 @@
+@startuml secuencia_registrar_reserva
+title CU01 / HU01 Registrar reserva (RF01, RF02, RF03)
+actor Recepcionista
+participant ":FrmReserva" as UI
+participant ":GestorReservas" as GR
+participant ":GestorHabitaciones" as GH
+participant ":Reserva" as R
+participant ":Pago" as P
+participant ":RepositorioReservas" as REP
+Recepcionista -> UI : ingresarDatos(huesped, fechas, tipo)
+UI -> GR : registrarReserva(datos)
+GR -> GH : buscarDisponibles(fechaIngreso, fechaSalida, tipo)
+GH --> GR : habitaciones libres
+alt hay habitaciones libres
+  GR -> R : crear(huesped, habitacion, fechas)
+  GR -> P : registrar(monto, metodo)
+  GR -> REP : guardar(reserva)
+  REP --> GR : guardado correcto
+  GR --> UI : reserva confirmada (código)
+  UI --> Recepcionista : mostrar confirmación
+else sin habitaciones libres
+  GR --> UI : sin disponibilidad
+  UI --> Recepcionista : avisar
+end
+@enduml
