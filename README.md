@@ -27,7 +27,7 @@ Construir y refinar el diagrama de clases UML del sistema de reservas a partir d
 | 7. Paquetes y estándares UML | `modelo/paquetes.puml`, `evidencias/fig6_paquetes.png` |
 | 8. Checklist | `docs/checklist_validacion.md` |
 | 9. Versionado | historial de commits + tag `v0.5` |
-| Informe | `informe/Tema5_TasillaTerronesCleison.pdf` y `.docx` |
+| Informe | `Tema5_CabellosTorresYajaira` |
 
 ## Cómo ver los diagramas
 
